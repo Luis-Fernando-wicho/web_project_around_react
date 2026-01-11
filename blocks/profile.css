@@ -83,7 +83,7 @@
   margin: 0px 0px 0px 18px;
 
   background-color: black;
-  background-image: url("/images/Edit\ Button.svg");
+  background-image: url("../src/assets/Edit\ Button.svg");
   background-size: cover;
   background-position: center;
   border: none;
