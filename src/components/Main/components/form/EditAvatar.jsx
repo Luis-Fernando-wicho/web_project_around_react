@@ -1,6 +1,6 @@
-export default function NewCard() {
+export default function EditAvatar() {
   return (
-    <>
+    <form method="dialog" className="popup__form" noValidate>
       <label className="popup__form__label">
         <input
           className="popup__input popup__input_avatar"
@@ -18,6 +18,6 @@ export default function NewCard() {
       >
         Guardar
       </button>
-    </>
+    </form>
   );
 }

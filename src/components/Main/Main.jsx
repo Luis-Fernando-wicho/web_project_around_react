@@ -1,12 +1,16 @@
 import avatar from "../../assets/01.jpg";
 import lapiz from "../../assets/lapiz.svg";
 import editarName from "../../assets/changename.svg";
+
 import { useState } from "react";
-import NewCard from "./components/form/NewCard/NewCard";
-import NewAvatar from "./components/form/NewAvatar/NewAvatar";
-import Popup from "./components/Popup/Popup";
+
 import Card from "./components/Card/Card";
-import ImageOpen from "./components/form/Imageopen/ImageOpen";
+import Popup from "./components/Popup/Popup";
+
+import NewCard from "./components/form/NewCard";
+import EditProfile from "./components/form/EditProfile.JSX";
+import EditAvatar from "./components/form/EditAvatar.JSX";
+import ImagePopup from "./components/form/ImagePopup";
 
 const cards = [
   {
@@ -26,39 +30,29 @@ const cards = [
     createdAt: "2019-07-05T08:11:58.324Z",
   },
 ];
-
-console.log(cards);
-
 export default function Main() {
   const [popup, setPopup] = useState(null);
-  const newCardPopup = {
-    title: "Nuevo lugar",
-    children: <NewCard />,
-    primero: "Nombre del lugar",
-    segundo: "url",
-  };
-  const newNamePopup = {
-    title: "Nuevo nombre",
-    children: <NewCard />,
-    primero: "Nombre",
-    segundo: "ocupacion",
-  };
-  const newAvatarPopup = { title: "Nuevo avatar", children: <NewAvatar /> };
-  /* const imageComponent = { title: "", children: <ImageOpen /> }; */
+
+  const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
+  const editAvatar = { title: "Editar Avatar", children: <EditAvatar /> };
+  const editProfile = { title: "Editar Perfil", children: <EditProfile /> };
+  const openImg = { title: "", children: <ImagePopup /> };
 
   function handleOpenPopup(popup) {
     setPopup(popup);
   }
+
   function handleClosePopup() {
     setPopup(null);
   }
+
   return (
     <>
       <main className="main">
         <div className="profile">
           <div
             className="profile__avatar"
-            onClick={() => handleOpenPopup(newAvatarPopup)}
+            onClick={() => handleOpenPopup(editAvatar)}
           >
             <img className="profile__img" src={avatar} alt="" />
             <div className="profile__hover">
@@ -71,7 +65,7 @@ export default function Main() {
             <button
               id="infoedit"
               className="profile__info profile__info_edit"
-              onClick={() => handleOpenPopup(newNamePopup)}
+              onClick={() => handleOpenPopup(editProfile)}
             ></button>
             <h2 className="profile__info profile__info_ocupation">ingeniero</h2>
           </div>
@@ -91,17 +85,7 @@ export default function Main() {
 
         <ul className="elements">
           {cards.map((card) => (
-            <Card
-              key={card._id}
-              card={card}
-              popup={() => {
-                handleOpenPopup({
-                  children: (
-                    <ImageOpen link={card.link} description={card.name} />
-                  ),
-                });
-              }}
-            />
+            <Card key={card._id} card={card} onCardClick={handleOpenPopup} />
           ))}
         </ul>
         {popup && (
@@ -109,9 +93,6 @@ export default function Main() {
             {popup.children}
           </Popup>
         )}
-        {/* {popup && (
-          <NewCard primero={popup.primero} segundo={popup.segundo}></NewCard>
-        )} */}
       </main>
     </>
   );

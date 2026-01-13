@@ -28,7 +28,7 @@
 }
 
 .element__trash {
-  background-image: url("/images/Trash.svg");
+  background-image: url("/src/assets/Trash.svg");
   background-color: rgba(240, 248, 255, 0);
   background-repeat: no-repeat;
   background-size: contain;
@@ -67,7 +67,7 @@
 
 .element__white_button {
   background-color: white;
-  background-image: url("/images/Group.svg");
+  background-image: url("/src/assets/Group.svg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
@@ -85,7 +85,7 @@
 
 .element__white_button-active {
   background-color: rgba(255, 7, 7, 0);
-  background-image: url("/images/likeactive.svg");
+  background-image: url("/src/assets/likeactive.svg");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
