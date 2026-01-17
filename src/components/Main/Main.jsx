@@ -2,7 +2,7 @@ import avatar from "../../assets/01.jpg";
 import lapiz from "../../assets/lapiz.svg";
 import editarName from "../../assets/changename.svg";
 
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 
 import Card from "./components/Card/Card";
 import Popup from "./components/Popup/Popup";
@@ -12,25 +12,24 @@ import EditProfile from "./components/form/EditProfile.JSX";
 import EditAvatar from "./components/form/EditAvatar.JSX";
 import ImagePopup from "./components/form/ImagePopup";
 
-const cards = [
-  {
-    isLiked: false,
-    _id: "5d1f0611d321eb4bdcd707dd",
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:10:57.741Z",
-  },
-  {
-    isLiked: false,
-    _id: "5d1f064ed321eb4bdcd707de",
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:11:58.324Z",
-  },
-];
+import api from "../../utils/api";
+
+import CurrentUserContext from "../../../src/contexts/CurrentUserContext";
+
 export default function Main() {
+  const currentUser = useContext(CurrentUserContext);
+
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    api
+      .getCardList()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((error) => console.error(error));
+  }, []);
+
   const [popup, setPopup] = useState(null);
 
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
@@ -54,20 +53,24 @@ export default function Main() {
             className="profile__avatar"
             onClick={() => handleOpenPopup(editAvatar)}
           >
-            <img className="profile__img" src={avatar} alt="" />
+            <img className="profile__img" src={currentUser.avatar} alt="" />
             <div className="profile__hover">
               <img className="profile__svg" src={lapiz} alt="svg de un lapiz" />
             </div>
           </div>
 
           <div className="profile__info">
-            <h2 className="profile__info profile__info_name">Fernando Wicho</h2>
+            <h2 className="profile__info profile__info_name">
+              {currentUser.name}
+            </h2>
             <button
               id="infoedit"
               className="profile__info profile__info_edit"
               onClick={() => handleOpenPopup(editProfile)}
             ></button>
-            <h2 className="profile__info profile__info_ocupation">ingeniero</h2>
+            <h2 className="profile__info profile__info_ocupation">
+              {currentUser.about}
+            </h2>
           </div>
           <button
             className="profile__add-button"
