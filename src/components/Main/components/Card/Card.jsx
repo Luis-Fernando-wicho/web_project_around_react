@@ -3,18 +3,17 @@ import { ImgContext } from "../../../../contexts/imgContext";
 import ImagePopup from "../form/ImagePopup";
 
 export default function Card(props) {
+  function handleLikeClick() {
+    props.onCardLike(props.card);
+  }
+
   const { name, link, isLiked } = props.card;
-  console.log(props.card);
+
   const cardLikeButtonClassName = `element__white_button ${
     isLiked ? "element__white_button-active" : ""
   }`;
 
-  const {
-    contextLinkImg,
-    setContextLinkImg,
-    contextNameImg,
-    setContextNamekImg,
-  } = useContext(ImgContext);
+  const { setContextLinkImg, setContextNamekImg } = useContext(ImgContext);
 
   const openImgConfig = { title: "", children: <ImagePopup /> };
 
@@ -32,6 +31,7 @@ export default function Card(props) {
         <div className="element__white">
           <h2 className="element__white element__white_title">{name}</h2>
           <button
+            onClick={handleLikeClick}
             className={`element__white ${cardLikeButtonClassName}`}
           ></button>
         </div>

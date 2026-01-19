@@ -21,6 +21,20 @@ export default function Main() {
 
   const [cards, setCards] = useState([]);
 
+  async function handleCardLike(card) {
+    const isLiked = card.isLiked;
+    await api
+      .changeLikeCardStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard,
+          ),
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
   useEffect(() => {
     api
       .getCardList()
@@ -88,7 +102,12 @@ export default function Main() {
 
         <ul className="elements">
           {cards.map((card) => (
-            <Card key={card._id} card={card} onCardClick={handleOpenPopup} />
+            <Card
+              key={card._id}
+              card={card}
+              onCardClick={handleOpenPopup}
+              onCardLike={handleCardLike}
+            />
           ))}
         </ul>
         {popup && (
