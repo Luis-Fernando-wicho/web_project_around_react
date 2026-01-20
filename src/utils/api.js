@@ -32,7 +32,8 @@ class Api {
     });
   }
 
-  setData(newName, newAbout) {
+  setUserInfo(newName, newAbout) {
+    console.log(newName, newAbout, "en api");
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,

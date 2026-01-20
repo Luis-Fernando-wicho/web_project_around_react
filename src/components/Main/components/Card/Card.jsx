@@ -1,11 +1,22 @@
 import React, { useContext } from "react";
 import { ImgContext } from "../../../../contexts/imgContext";
 import ImagePopup from "../form/ImagePopup";
+import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 
 export default function Card(props) {
   function handleLikeClick() {
     props.onCardLike(props.card);
   }
+
+  function handleDelateClick() {
+    props.onCardDelete(props.card);
+  }
+
+  const { currentUser } = useContext(CurrentUserContext);
+  const isOwn = props.card.owner === currentUser._id;
+  const cardDeleteButtonClassName = ` ${
+    isOwn ? "element__trash" : "element__trash_hidden"
+  }`;
 
   const { name, link, isLiked } = props.card;
 
@@ -27,7 +38,10 @@ export default function Card(props) {
     <>
       <li className="element">
         <img className="element__image" src={link} onClick={handleImageClick} />
-        <button className="element__trash"></button>
+        <button
+          className={cardDeleteButtonClassName}
+          onClick={handleDelateClick}
+        ></button>
         <div className="element__white">
           <h2 className="element__white element__white_title">{name}</h2>
           <button

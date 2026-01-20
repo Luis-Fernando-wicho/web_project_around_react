@@ -17,7 +17,7 @@ import api from "../../utils/api";
 import CurrentUserContext from "../../../src/contexts/CurrentUserContext";
 
 export default function Main() {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   const [cards, setCards] = useState([]);
 
@@ -30,6 +30,17 @@ export default function Main() {
           state.map((currentCard) =>
             currentCard._id === card._id ? newCard : currentCard,
           ),
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
+  async function handleCardDelete(card) {
+    await api
+      .deleteCard(card._id)
+      .then(() => {
+        setCards((state) =>
+          state.filter((currentCard) => currentCard._id !== card._id),
         );
       })
       .catch((error) => console.error(error));
@@ -107,6 +118,7 @@ export default function Main() {
               card={card}
               onCardClick={handleOpenPopup}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           ))}
         </ul>
