@@ -11,11 +11,12 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
 
   useEffect(() => {
-    (async () => {
-      await api.getUserInfo().then((data) => {
+    api
+      .getUserInfo()
+      .then((data) => {
         setCurrentUser(data);
-      });
-    })();
+      })
+      .catch((err) => console.error(`Error al cargar usuario: ${err}`));
   }, []);
 
   const handleUpdateUser = (data) => {

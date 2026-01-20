@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { ImgContext } from "../../../../contexts/imgContext";
-export default function ImagePopup(props) {
+export default function ImagePopup() {
   const { contextLinkImg, contextNameImg } = useContext(ImgContext);
   return (
     <>

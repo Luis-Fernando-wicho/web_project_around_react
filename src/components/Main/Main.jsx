@@ -10,7 +10,6 @@ import Popup from "./components/Popup/Popup";
 import NewCard from "./components/form/NewCard";
 import EditProfile from "./components/form/EditProfile.JSX";
 import EditAvatar from "./components/form/EditAvatar.JSX";
-import ImagePopup from "./components/form/ImagePopup";
 
 import api from "../../utils/api";
 
@@ -60,7 +59,6 @@ export default function Main() {
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
   const editAvatar = { title: "Editar Avatar", children: <EditAvatar /> };
   const editProfile = { title: "Editar Perfil", children: <EditProfile /> };
-  const openImg = { title: "", children: <ImagePopup /> };
 
   function handleOpenPopup(popup) {
     setPopup(popup);
