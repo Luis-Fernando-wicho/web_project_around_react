@@ -26,9 +26,20 @@ function App() {
       });
     })();
   };
+
+  const handleUpdateAvatar = (data) => {
+    (async () => {
+      await api.setUserAvatar(data.avatar).then((newUserData) => {
+        setCurrentUser(newUserData);
+      });
+    })();
+  };
+
   return (
     <>
-      <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+      <CurrentUserContext.Provider
+        value={{ currentUser, handleUpdateUser, handleUpdateAvatar }}
+      >
         <div className="page">
           <Header />
           <Main />

@@ -16,20 +16,15 @@ class Api {
     });
   }
 
-  setAvatar(url) {
-    console.log(url);
+  setUserAvatar(url) {
+    // 'url' es el string que recibes del componente
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: this._headers, // Asegúrate de que aquí esté 'Content-Type': 'application/json'
       body: JSON.stringify({
-        avatar: url,
+        avatar: url, // LA CLAVE DEBE SER "avatar"
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
   }
 
   setUserInfo(newName, newAbout) {

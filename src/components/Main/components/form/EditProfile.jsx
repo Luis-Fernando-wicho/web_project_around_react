@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 
-export default function EditProfile() {
+export default function EditProfile({ onClose }) {
   const userContext = useContext(CurrentUserContext);
   const { currentUser, handleUpdateUser } = userContext;
 
@@ -17,11 +17,15 @@ export default function EditProfile() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault(); // Evita el comportamiento predeterminado del envío de formularios
+    event.preventDefault();
     handleUpdateUser({
       name: name,
       about: description,
     });
+
+    if (onClose) {
+      onClose();
+    }
   };
 
   return (

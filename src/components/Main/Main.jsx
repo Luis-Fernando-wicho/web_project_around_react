@@ -1,4 +1,3 @@
-import avatar from "../../assets/01.jpg";
 import lapiz from "../../assets/lapiz.svg";
 import editarName from "../../assets/changename.svg";
 
@@ -56,9 +55,18 @@ export default function Main() {
 
   const [popup, setPopup] = useState(null);
 
-  const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
-  const editAvatar = { title: "Editar Avatar", children: <EditAvatar /> };
-  const editProfile = { title: "Editar Perfil", children: <EditProfile /> };
+  const newCardPopup = {
+    title: "Nuevo lugar",
+    children: <NewCard onClose={handleClosePopup} />,
+  };
+  const editAvatar = {
+    title: "Editar Avatar",
+    children: <EditAvatar onClose={handleClosePopup} />,
+  };
+  const editProfile = {
+    title: "Editar Perfil",
+    children: <EditProfile onClose={handleClosePopup} />,
+  };
 
   function handleOpenPopup(popup) {
     setPopup(popup);
